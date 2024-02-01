@@ -1,10 +1,13 @@
 import pandas as pd
-df=pd.read_csv("C:\\Users\\kimot\\OneDrive\\ドキュメント\\アプリ作成データ保管\\味の素(2802).csv",encoding='cp932')
+from data_loader import load_data
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+
+# データの読み込み
+df = load_data('味の素(2802).csv')
 import datetime as dt
 df['Date']=pd.to_datetime(df['Date'])
 df1=df[df['Date']<=dt.datetime(2024,1,17)]
-from sklearn.model_selection import train_test_split
-from sklearn.linear_model import LinearRegression
 from sklearn.preprocessing import StandardScaler
 # 特徴量とターゲット変数の選択
 x = df1.drop(['株価','Date'],axis=1).values

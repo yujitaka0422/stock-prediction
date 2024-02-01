@@ -1,25 +1,26 @@
 from fastapi import FastAPI, HTTPException
 import pandas as pd
 import pickle
-import os
 import numpy as np
 from pydantic import BaseModel
 import datetime as dt
+from data_loader import load_data  # data_loader.py から関数をインポート
+import os
 
 app = FastAPI()
 
 MODEL_PATH = 'model_stock'
-DATA_PATH = "C:\\Users\\kimot\\OneDrive\\ドキュメント\\アプリ作成データ保管\\味の素(2802).csv"
 
 if os.path.exists(MODEL_PATH):
     model = pickle.load(open(MODEL_PATH, 'rb'))
 else:
     raise FileNotFoundError(f"Model file not found at {MODEL_PATH}")
 
-if os.path.exists(DATA_PATH):
-    df2 = pd.read_csv(DATA_PATH, encoding='cp932')
-else:
-    raise FileNotFoundError(f"Data file not found at {DATA_PATH}")
+# CSVファイルの読み込み
+try:
+    df2 = load_data('味の素(2802).csv')  # CSVファイル名を指定して関数を呼び出し
+except FileNotFoundError as e:
+    raise FileNotFoundError(f"Data file not found: {e}")
 
 df2['Date'] = pd.to_datetime(df2['Date'])
 data = df2[df2['Date'] > dt.datetime(2024,1,17)]
@@ -57,7 +58,6 @@ async def predict_stock(request: PredictionRequest):
     result.update(feature_values)
 
     return result
-
 
 
 
