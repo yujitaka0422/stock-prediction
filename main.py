@@ -6,8 +6,17 @@ from pydantic import BaseModel
 import datetime as dt
 from data_loader import load_data  # data_loader.py から関数をインポート
 import os
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # すべてのドメインからのアクセスを許可
+    allow_credentials=True,
+    allow_methods=["*"],  # すべてのHTTPメソッドを許可
+    allow_headers=["*"],  # すべてのHTTPヘッダーを許可
+)
 
 MODEL_PATH = 'model_stock'
 

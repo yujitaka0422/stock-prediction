@@ -16,6 +16,7 @@ payload = {
 
 # FastAPIサーバーにPOSTリクエストを送信
 url = 'http://127.0.0.1:8000/predict'  # URLの末尾に '/predict' を追加
+# url = 'http://127.0.0.1:8000/predict'
 
 try:
     response = requests.post(url, json=payload)
