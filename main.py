@@ -32,7 +32,7 @@ except FileNotFoundError as e:
     raise FileNotFoundError(f"Data file not found: {e}")
 
 df2['Date'] = pd.to_datetime(df2['Date'])
-data = df2[df2['Date'] > dt.datetime(2024,1,17)]
+data = df2[df2['Date'] > dt.datetime(2024,2,6)]
 
 class PredictionRequest(BaseModel):
     Date: dt.date

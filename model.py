@@ -7,7 +7,7 @@ from sklearn.linear_model import LinearRegression
 df = load_data('味の素(2802).csv')
 import datetime as dt
 df['Date']=pd.to_datetime(df['Date'])
-df1=df[df['Date']<=dt.datetime(2024,1,17)]
+df1=df[df['Date']<=dt.datetime(2024,2,6)]
 from sklearn.preprocessing import StandardScaler
 # 特徴量とターゲット変数の選択
 x = df1.drop(['株価','Date'],axis=1).values
